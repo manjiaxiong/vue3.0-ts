@@ -35,3 +35,4 @@ interface IPerson {
     age: 20,
     sex: '男'
   }
+  
