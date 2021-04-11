@@ -1,15 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <h2>App</h2>
+  <p>msg: {{msg}}</p>
+  <button @click="fn('--')">更新</button>
+
+  <child :msg="msg" msg2="cba" @fn="fn"/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import {
+  reactive,
+  ref,
+} from 'vue'
+import child from './components/Child.vue'
 
 export default {
-  name: 'App',
+
   components: {
-    HelloWorld
+    child
+  },
+
+  setup () {
+    const msg = ref('abc')
+
+    function fn (content: string) {
+      msg.value += content
+    }
+    return {
+      msg,
+      fn
+    }
   }
 }
 </script>
