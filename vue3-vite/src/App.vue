@@ -1,33 +1,91 @@
 <template>
-  <h2>App</h2>
-  <p>msg: {{msg}}</p>
-  <button @click="fn('--')">更新</button>
-
-  <child :msg="msg" msg2="cba" @fn="fn"/>
+<div class="about">
+  <h2>msg: {{msg}}</h2>
+  <hr>
+  <button @click="update">更新</button>
+</div>
 </template>
 
 <script lang="ts">
 import {
-  reactive,
   ref,
-} from 'vue'
-import child from './components/Child.vue'
+  onMounted,
+  onUpdated,
+  onUnmounted, 
+  onBeforeMount, 
+  onBeforeUpdate,
+  onBeforeUnmount
+} from "vue"
 
 export default {
-
-  components: {
-    child
+  beforeCreate () {
+    console.log('beforeCreate()')
   },
 
-  setup () {
+  created () {
+    console.log('created')
+  },
+
+  beforeMount () {
+    console.log('beforeMount')
+  },
+
+  mounted () {
+    console.log('mounted')
+  },
+
+  beforeUpdate () {
+    console.log('beforeUpdate')
+  },
+
+  updated () {
+    console.log('updated')
+  },
+
+  beforeUnmount () {
+    console.log('beforeUnmount')
+  },
+
+  unmounted () {
+     console.log('unmounted')
+  },
+  
+
+  setup() {
+    
     const msg = ref('abc')
 
-    function fn (content: string) {
-      msg.value += content
+    const update = () => {
+      msg.value += '--'
     }
+
+    onBeforeMount(() => {
+      console.log('--onBeforeMount')
+    })
+
+    onMounted(() => {
+      console.log('--onMounted')
+    })
+
+    onBeforeUpdate(() => {
+      console.log('--onBeforeUpdate')
+    })
+
+    onUpdated(() => {
+      console.log('--onUpdated')
+    })
+
+    onBeforeUnmount(() => {
+      console.log('--onBeforeUnmount')
+    })
+
+    onUnmounted(() => {
+      console.log('--onUnmounted')
+    })
+    
     return {
       msg,
-      fn
+      update
     }
   }
 }
