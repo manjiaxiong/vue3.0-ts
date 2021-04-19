@@ -9,7 +9,7 @@
   <!-- <router-view/> -->
 </template>
   <script lang='ts'>
-  import { defineComponent,isReactive } from 'vue'
+  import { defineComponent,watch } from 'vue'
   import Header from './components/Header.vue'
   import Footer from './components/Footer.vue'
   import List from './components/List.vue'
@@ -17,6 +17,7 @@
   import {reactive,
   toRef,
   ref,} from 'vue'
+  import {saveTodo,getTodo} from './utils/localStorageUtil'
   export default defineComponent({
     components:{
       Header,
@@ -25,23 +26,11 @@
     },
     setup(){
       const state=reactive<{ todos:Todo[]}>({
-        todos:[
-        {
-          task:'熊家满',
-          id:Math.random(),
-          checkbox:false
-        },
-        {
-          task:'熊家满1',
-          id:Math.random(),
-          checkbox:true
-        },
-        {
-          task:'熊家满2',
-          id:Math.random(),
-          checkbox:false
-        }
-      ]})
+        todos:getTodo()})
+      //实时更改或读取localStorage
+      watch(state.todos,saveTodo,{
+        deep:true
+      })
       const addTodo=(todo:Todo):void=>{//增加
           state.todos.unshift(todo)
       }
