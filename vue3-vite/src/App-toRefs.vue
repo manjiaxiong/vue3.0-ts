@@ -63,7 +63,7 @@ function useReatureX() {
     state.foo2 += '++'
     state.bar2 += '++'
   }, 2000);
-  console.log(toRefs(state));
+  // console.log(toRefs(state));
   
   return toRefs(state)
 }
