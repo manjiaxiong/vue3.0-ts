@@ -60,7 +60,7 @@
             red=4,green=8,blue,男,女
         }
         const myColor:Color=Color.red
-        console.log(myColor,Color.green,Color.blue,Color[9],Color.男,Color[11]);
+        console.log('mycolor',myColor,Color.green,Color.blue,Color[9],Color.男,Color[11]);
         /***
          * any类型
          */

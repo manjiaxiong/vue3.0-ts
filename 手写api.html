@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Api</title>
+</head>
+<body>
+    
+</body>
+<script src="./idnex.js"></script>
+<script>
+    /* 测试自定义shallowReactive */
+const proxy1 = shallowReactive({
+  a: {
+    b: 3
+  }
+})
+
+proxy1.a = {b: 4} // 劫持到了
+proxy1.a.b = 5 // 没有劫持到
+    /* 测试自定义reactive */
+const obj = {
+  a: 'abc',
+  b: [{x: 1}],
+  c: {x: [11]},
+}
+
+const proxy = reactive(obj)
+console.log(proxy)
+proxy.b[0].x += 1
+proxy.c.x[0] += 1
+/* 测试自定义shallowRef */
+const ref3 = shallowRef({
+  a: 'abc',
+})
+ref3.value = 'xxx'
+ref3.value.a = 'yyy'
+    /* 测试自定义ref */
+const ref1 = ref(0)
+const ref2 = ref({
+  a: 'abc',
+  b: [{x: 1}],
+  c: {x: [11]},
+})
+ref1.value++
+ref2.value.b[0].x++
+console.log(ref1, ref2)
+    /* 测试自定义shallowReadonly */
+const objReadOnly = readonly({
+  a: {
+    b: 1
+  }
+})
+const objReadOnly2 = shallowReadonly({
+  a: {
+    b: 1
+  }
+})
+
+objReadOnly.a = 1
+objReadOnly.a.b = 2
+objReadOnly2.a = 1
+objReadOnly2.a.b = 2
+    /* 测试判断函数 */
+console.log(isReactive(reactive({})))
+console.log(isRef(ref({})))
+console.log(isReadonly(readonly({})))
+console.log(isProxy(reactive({})))
+console.log(isProxy(readonly({})))
+</script>
+</html>
